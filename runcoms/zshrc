@@ -5,9 +5,46 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+
+# Customize to your needs...
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=5000
+SAVEHIST=5000
+setopt autocd extendedglob nomatch
+bindkey -a
+bindkey -e
+bindkey "^[[3~" delete-char
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/tacumi/dotfiles/zsh/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+# envrionment variables
+export EDITOR='emacs'
+
+# setup asdf tools
+if [ -f /opt/asdf-vm/asdf.sh ]; then
+    . /opt/asdf-vm/asdf.sh
+fi
+
+if command -v jj > /dev/null ; then
+    source <(jj util completion zsh)
+fi
+
+if [ -d "${ZDOTDIR:-$HOME}"/.zprezto ]; then
+   for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+       ln -nfs "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+   done
+fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# alias
+alias torrent='screen -D -r rtorrent'
